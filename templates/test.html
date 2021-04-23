@@ -105,19 +105,19 @@
   <input type="number" id="Avg_Open_To_Buy" name="Avg_Open_To_Buy"><br><br>
 
   <label for="Total_Amt_Chng_Q4_Q1">Change in Transaction Amount (Q4 over Q1):</label>
-  <input type="number" id="Total_Amt_Chng_Q4_Q1" name="Total_Amt_Chng_Q4_Q1"><br><br>
+  <input type="number" step="0.001" id="Total_Amt_Chng_Q4_Q1" name="Total_Amt_Chng_Q4_Q1"><br><br>
 
   <label for="Total_Trans_Amt">Total Transaction Amount (Last 12 months):</label>
-  <input type="number" id="Total_Trans_Amt" name="Total_Trans_Amt"><br><br>
+  <input type="number" step="0.001" id="Total_Trans_Amt" name="Total_Trans_Amt"><br><br>
 
   <label for="Total_Trans_Ct">Total Transaction Count (Last 12 months):</label>
   <input type="number" id="Total_Trans_Ct" name="Total_Trans_Ct"><br><br>
 
   <label for="Total_Ct_Chng_Q4_Q1">Change in Transaction Count (Q4 over Q1):</label>
-  <input type="number" id="Total_Ct_Chng_Q4_Q1" name="Total_Ct_Chng_Q4_Q1"><br><br>
+  <input type="number" step="0.001" id="Total_Ct_Chng_Q4_Q1" name="Total_Ct_Chng_Q4_Q1"><br><br>
 
   <label for="Avg_Utilization_Ratio">Average Card Utilization Ratio:</label>
-  <input type="number" id="Avg_Utilization_Ratio" name="Avg_Utilization_Ratio"><br><br>
+  <input type="number" step="0.001" id="Avg_Utilization_Ratio" name="Avg_Utilization_Ratio"><br><br>
 
 
   <input type="submit" value="Predict" id="button">
@@ -133,9 +133,8 @@
 
   {% if show %}
 
-  {{username}} <br>
-  {{gender}} <br>
-  {{Card_cate}}<br>
+
+  {{y_pred}}<br>
   
   {% endif %}
 
