@@ -6,7 +6,6 @@
 
 from flask import Flask ,jsonify , request ,session,render_template ,redirect,render_template_string,make_response
 
-from usemodel import usemodel
 app = Flask(__name__)
 
 
@@ -148,7 +147,7 @@ def test1():
 
             result = loaded_model.predict(data_sig4)
             result_inproba = loaded_model.predict_proba(data_sig4)
-
+            #result = 1
             #result = usemodel(value)
             #result,result_inproba = usemodel(value)
             ###################################
