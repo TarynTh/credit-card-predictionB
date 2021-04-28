@@ -5,23 +5,21 @@
 
 
 from flask import Flask ,jsonify , request ,session,render_template ,redirect,render_template_string,make_response
+
+from usemodel import usemodel
+app = Flask(__name__)
+
+
 import pandas as pd
 from scipy.special import expit
 import joblib
+import numpy as np
 import xgboost
-
-app = Flask(__name__)
 
 df = pd.read_csv('mean_and_sd.csv')
 df = df.set_index('Unnamed: 0')
 dict_df = df.to_dict()
 
-##############################
-
-
-
-
-##############################
 
 @app.route('/' ,  methods=["POST","GET"])
 def test1():
@@ -48,12 +46,11 @@ def test1():
 
     a = None
     
-
     try :
 
         if request.form and request.method == 'POST':
-            username = request.form['input1']
-            password = request.form['input2']
+            #username = request.form['input1']
+            #password = request.form['input2']
 
             ####################################
 
@@ -83,7 +80,6 @@ def test1():
 
             ####################################
             value = [Customer_Age,
-                    Dependent_count,
                     Months_on_book,
                     Total_Relationship_Count,
                     Months_Inactive_12_mon,
@@ -97,7 +93,7 @@ def test1():
                     Total_Ct_Chng_Q4_Q1,
                     Avg_Utilization_Ratio]
 
-            ####################################
+            ###################################
 
             data_dict = {'Customer_Age':Customer_Age,
             'Months_on_book':Months_on_book,
@@ -150,11 +146,14 @@ def test1():
 
             loaded_model = joblib.load('model5.json')
 
-            y_pred = loaded_model.predict(data_sig4)
+            result = loaded_model.predict(data_sig4)
+            result_inproba = loaded_model.predict_proba(data_sig4)
 
-            ####################################
+            #result = usemodel(value)
+            #result,result_inproba = usemodel(value)
+            ###################################
 
-            if y_pred == 1:
+            if result == 1:
                 a = "ไปแล้ว"
 
             else :
@@ -165,25 +164,23 @@ def test1():
             print("username : ", username)
             print("password : ", password)
 
-            if username == '' or password == '' or gender == '' :
+            if Credit_Limit == ''  :
                 error = True 
                 print("!!!!!")
 
 
         return render_template('test.html' , 
                                 error = error ,
-                                username = username , 
-                                password = password , 
+                                
                                 show = True , 
-                                gender = gender , 
+                             
                                 y_pred = a ,
-                                value = value,
-                                Customer_Age = Customer_Age)
+                               )
 
     except Exception as e:
         print("Error is : " , str(e))
         return("Error is : " + str(e))
-        #return("กลับไปเลือกให้ครบไอ้เวร")
+        #return("กลับไปกรอกให้ครบไอ้เวร")
 
 if __name__ == '__main__': 
     app.run(debug=True, host='0.0.0.0', threaded=True, port=6969)
